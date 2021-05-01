@@ -1,6 +1,6 @@
 import random
 
-
+#create 4*4 matrix(game board)
 class Board:
     def __init__(self):
         self.board=[]
@@ -9,10 +9,14 @@ class Board:
             for j in range(4):
                 row.append(0)
             self.board.append(row)
-
+            
+    # print board
+    
     def print_board(self):
         print self.board
-
+        
+    # randomly generate index and also(2 or 4 value)
+    
     def add_random_2_or_4(self):
         while True:
             random_index_row = random.randint(0,3)
@@ -22,7 +26,12 @@ class Board:
             if self.board[random_index_row][random_index_col] == 0:
                 self.board[random_index_row][random_index_col] = arr[random_no_from_arr]
                 return
-
+            
+    # checking is game over- 3 condition apply
+    # if any row has 0 element game will continue
+    # if previous element of each row different game will over
+    # check column wise also
+    
     def is_game_over(self):
         for i in range(len(self.board)):
             for j in range(0, len(self.board[i])):
@@ -43,7 +52,9 @@ class Board:
                         return False
                     
         return True
-
+    
+    # iterate reverse for moving right
+    
     def move_right(self):
         for index in range(len(self.board)):
             sub_list = self.board[index]
@@ -63,7 +74,9 @@ class Board:
                         sub_list[p-1] = sub_list[i]
                         sub_list[i] = 0
                     p -= 1
-
+                    
+    # iterate over the list of list
+    
     def move_left(self):
         for index in range(len(self.board)):
             sub_list = self.board[index]
@@ -103,6 +116,8 @@ class Board:
                         self.board[p+1][c] = self.board[r][c]
                         self.board[r][c] = 0
                     p +=1
+                    
+    # iterate column wise
     
     def move_down(self):
         for c in range(len(self.board)):
@@ -130,7 +145,7 @@ class Game:
         self.board.add_random_2_or_4()
         self.board.add_random_2_or_4()
         
-
+    # iterate reversed as column wise
     def process_input(self,keyword):
         if keyword == 'a' or keyword == 'A':   #left
             self.board.move_left()          
